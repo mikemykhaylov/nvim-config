@@ -13,5 +13,8 @@ return {
       "vim",
       -- add more arguments for adding more treesitter parsers
     })
+    opts.ignore_install = require("astrocore").list_insert_unique(opts.ignore_install, {
+      "gitcommit",
+    })
   end,
 }
