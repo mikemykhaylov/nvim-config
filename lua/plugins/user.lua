@@ -35,6 +35,34 @@ return {
       return opts
     end,
   },
+  {
+    "L3MON4D3/LuaSnip",
+    opts = {
+      enable_autosnippets = true,
+    },
+  },
+  {
+    "iurimateus/luasnip-latex-snippets.nvim",
+    ft = "tex",
+    opts = {
+      use_treesitter = true,
+    },
+    config = function(_, opts)
+      require("luasnip-latex-snippets").setup(opts)
+
+      local ls = require "luasnip"
+      local utils = require "luasnip-latex-snippets.util.utils"
+      local not_math = utils.not_math(true) -- pass true if using Treesitter
+      local snip = ls.parser.parse_snippet({ trig = "mk", name = "Math" }, "$ ${1:${TM_SELECTED_TEXT}} $$0")
+
+      snip.condition = not_math
+      snip.priority = 10 -- anything greater than 0.
+
+      ls.add_snippets("tex", { snip }, {
+        type = "autosnippets",
+      })
+    end,
+  },
 
   -- You can disable default plugins as follows:
   -- { "max397574/better-escape.nvim", enabled = false },
