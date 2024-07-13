@@ -11,6 +11,7 @@ return {
   -- import/override with your plugins folder
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.json" },
+  { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.yaml" },
