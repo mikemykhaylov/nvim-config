@@ -5,16 +5,15 @@
 ---@type LazySpec
 return {
   "nvim-treesitter/nvim-treesitter",
-  opts = function(_, opts)
-    vim.treesitter.language.register("bash", "zsh")
-    -- add more things to the ensure_installed table protecting against community packs modifying it
-    opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
+  opts = {
+    ensure_installed = {
       "lua",
       "vim",
       -- add more arguments for adding more treesitter parsers
-    })
-    opts.ignore_install = require("astrocore").list_insert_unique(opts.ignore_install, {
+    },
+    ignore_install = {
       "gitcommit",
-    })
-  end,
+    },
+  },
+  init = function(_) vim.treesitter.language.register("bash", "zsh") end,
 }
