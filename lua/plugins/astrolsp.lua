@@ -49,8 +49,8 @@ return {
         settings = {
           texlab = {
             build = {
-              executable = "tectonic",
-              args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
+              executable = "latexmk",
+              args = { "-pdflua", "-interaction=nonstopmode", "-synctex=1", "%f" },
               forwardSearchAfter = true,
               onSave = true,
             },
