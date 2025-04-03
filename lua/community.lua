@@ -14,6 +14,6 @@ return {
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.yaml" },
-  { import = "astrocommunity.completion.copilot-lua-cmp" },
+  { import = "astrocommunity.recipes.ai" },
   { import = "astrocommunity.colorscheme.rose-pine" },
 }
