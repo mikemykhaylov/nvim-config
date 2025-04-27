@@ -20,6 +20,7 @@ return {
         -- "stylua",
         "shellcheck",
         "shfmt",
+        "latexindent",
 
         -- install debuggers
         -- "debugpy",
