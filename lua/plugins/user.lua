@@ -77,6 +77,15 @@ return {
       })
     end,
   },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    opts = {
+      styles = {
+        transparency = true,
+      },
+    },
+  },
   -- {
   --   "windwp/nvim-autopairs",
   --   config = function(plugin, opts)
