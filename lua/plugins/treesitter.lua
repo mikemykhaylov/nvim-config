@@ -21,5 +21,4 @@ return {
       },
     },
   },
-  init = function(_) vim.treesitter.language.register("bash", "zsh") end,
 }

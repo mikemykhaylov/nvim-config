@@ -14,7 +14,6 @@ return {
         -- install language servers
         -- "lua-language-server",
         "texlab",
-        "bash-language-server",
 
         -- install formatters
         -- "stylua",
