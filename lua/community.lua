@@ -13,6 +13,7 @@ return {
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.pack.helm" },
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.colorscheme.rose-pine" },
