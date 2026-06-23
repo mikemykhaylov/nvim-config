@@ -14,6 +14,7 @@ return {
         -- install language servers
         -- "lua-language-server",
         "texlab",
+        "circleci-yaml-language-server",
 
         -- install formatters
         -- "stylua",

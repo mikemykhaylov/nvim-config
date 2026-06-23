@@ -40,6 +40,7 @@ return {
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
+      "circleci",
     },
     -- customize language server configuration passed to `vim.lsp.config`
     -- client specific configuration can also go in `lsp/` in your configuration root (see `:h lsp-config`)
@@ -56,6 +57,47 @@ return {
             },
           },
         },
+      },
+      yamlls = {
+        -- skip yamlls inside .circleci/ so the CircleCI LSP is the sole yaml provider there
+        -- (otherwise yamlls flags the duplicate `<<` merge keys CircleCI permits)
+        root_dir = function(bufnr, on_dir)
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          for parent in vim.fs.parents(fname) do
+            if vim.fs.basename(parent) == ".circleci" then return end
+          end
+          on_dir(vim.fs.root(bufnr, { ".git" }) or vim.fs.dirname(fname))
+        end,
+      },
+      circleci = {
+        cmd = { vim.fn.stdpath "data" .. "/mason/bin/circleci-yaml-language-server", "-stdio" },
+        filetypes = { "yaml" },
+        root_dir = function(bufnr, on_dir)
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          if fname == "" then return end
+          for parent in vim.fs.parents(fname) do
+            if vim.fs.basename(parent) == ".circleci" then
+              on_dir(parent)
+              return
+            end
+          end
+        end,
+        -- the server reads host/token via `executeCommand` requests rather than
+        -- initializationOptions — without them, private/org orbs can't be resolved
+        on_attach = function(client, bufnr)
+          local function exec(command, arg)
+            if arg and arg ~= "" then
+              client:request("workspace/executeCommand", {
+                command = command,
+                arguments = { arg },
+              }, nil, bufnr)
+            end
+          end
+          -- host must be set before token so the cache refresh triggered by setToken
+          -- hits the correct API base URL
+          exec("setSelfHostedUrl", vim.env.CIRCLECI_HOST)
+          exec("setToken", vim.env.CIRCLECI_CLI_TOKEN)
+        end,
       },
     },
     -- customize how language servers are attached
